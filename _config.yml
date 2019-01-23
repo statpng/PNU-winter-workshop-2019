@@ -1,0 +1,9 @@
+# Site settings
+title: PNU winter workshop 2019
+email: kkp7700@gmail.com
+baseurl: "/PNU-winter-workshop-2019" # the subpath of your site, e.g. /blog/
+url: "https://statpng.github.io/PNU-winter-workshop-2019"
+github_username:  statpng
+
+# Build settings
+markdown: kramdown
