@@ -46,13 +46,13 @@ basic UNIX skills (such as free contents material at
 <hr>
 <br>
 
-#### [Part 1. Setup]({{ site.baseurl }}/part1/)
+#### [Part 0. Setup]({{ site.baseurl }}/part1/)
 
 | Part | Time           | Topics                   |
 | :-----: |   :--------------:    | :-----------------------|
 | 0       | Introduction          | **1.Objectives**          |
 |         |                       | **2.Methods**             |
-| I       | Setup                 | **1.Importing data**      |
+| 0       | Setup                 | **1.Importing data**      |
 |         |                       | **2.Data pre-processing** |
 |         |                       | **3.Quality-control(QC)** |
 |         |                       | **4.Imputation**          |
@@ -64,15 +64,41 @@ basic UNIX skills (such as free contents material at
 <br>
 
 
-#### [Part 2. Genome Association and Prediction Integrated Tool (GAPIT).]({{ site.baseurl }}/part2/)
+#### [Part 1. Genome Association and Prediction Integrated Tool (GAPIT).]({{ site.baseurl }}/part1/)
 
-| Part | Time           | Topics                   |
-| :-----: |   :--------------:    | :-----------------------|
-| II      | GAPIT                 | **1.Manhattan plot**      |
-|         |                       | **2.Q-Q plot**           |
-|         |                       | **3.Heatmap**            |
-|         |                       | **4.PCoA**               |
-|         |                       | **5.Mixed Linear Model** |
+| Part    |  Time                 | Topics                                                      |
+| :-----: |   :--------------:    | :-----------------------                                    |
+| I       | GAPIT                 | **1.Introduction of Genome-wide Association Study(GWAS)**   |
+|         |                       | **2.Statistical Model of GAPIT**                            |
+|         |                       | **3.Quality Control(QC) before Analysis**                   |
+|         |                       | **4.Analysis using GAPIT & result**                         |
+|         |                       | &nbsp; &nbsp; - code 1: treating heterozygosity             |
+|         |                       | &nbsp; &nbsp; - code 2: imputation and controlling MAF      |
+|         |                       | &nbsp; &nbsp; - code 3: optimal PC number                   |
+|         |                       | &nbsp; &nbsp; - code 4 : Compressed MLM                     |
+|         |                       | &nbsp; &nbsp; - code 5 : Enriched CMLM                      |
+
+<br>
+<hr>
+<br>
+
+
+#### [Part 2. Regularization procedures for variable selection.]({{ site.baseurl }}/part2/)
+
+| Part    | Time                  | Topics                                                        |
+| :-----: |   :--------------:    | :-----------------------                                      |
+| II      | Regularization        | **Variable selection in high-dimensional data**               |
+|         |                       | **Regularization procedures**                                 |
+|         |                       | **"glmnet"**                                                  |
+|         |                       | **"The Lasso"**                                               |
+|         |                       | &nbsp; &nbsp; - Solution path                                 |
+|         |                       | &nbsp; &nbsp; - Cross-validation                              |
+|         |                       | &nbsp; &nbsp; - Variable selection                            |
+|         |                       | &nbsp; &nbsp; - Comparison with univariate analysis           |
+|         |                       | &nbsp; &nbsp; - Prediction                                    |
+|         |                       | **Elastic-net**                                               |
+|         |                       | &nbsp; &nbsp; - Cross-validation for two tuning parameters    |
+|         |                       | **Covariate-adjusted model**                                  |
 
 
 <br>
@@ -80,19 +106,19 @@ basic UNIX skills (such as free contents material at
 <br>
 
 
-#### [Part 3. Regularization procedure for variable selection.]({{ site.baseurl }}/part3/)
+#### [Part 3. Selection probabilities.]({{ site.baseurl }}/part3/)
 
-| Part    | Time                  | Topics                                |
-| :-----: |   :--------------:    | :-----------------------              |
-| III     | Regularization        | **Subset selection**                  |
-|         |                       | **Regularization**                    |
-|         |                       | **Penalty functions**                 |
-|         |                       | **Solution path**                     |
-|         |                       | **Selecting the tuning parameter**    |
-|         |                       | **Cross-validation**                  |
-|         |                       | **Selection probability**             |
-|         |                       | **Others**                            |
-
+| Part    | Time                   | Topics                                                     |
+| :-----: |   :--------------:     | :-----------------------                                   |
+| III     | Selection probabilties | **An algorithm of selection probabilities**                |
+|         |                        | &nbsp; &nbsp; - Setting a grid of tuning parameters        |
+|         |                        | &nbsp; &nbsp; - Applying the regularization for subsamples |
+|         |                        | **Why split data with 0.5 proportion**                     |
+|         |                        | &nbsp; &nbsp; - Advantages of "subagging"                  |
+|         |                        | **Algorithm summary**                                      |
+|         |                        | **The stability path**                                     |
+|         |                        | **Threshold to control the false positive**                |
+|         |                        | **Manhattan plot with selection probabilities**            |
 
 <br>
 <hr>
