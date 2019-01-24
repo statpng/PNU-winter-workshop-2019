@@ -5,9 +5,10 @@ permalink: /part2/
 ---
 
 
-# Day 2. Regularization for analysis of high-dimensional genomic data
+# Part 2. Regularization for analysis of high-dimensional genomic data
 
----
+<hr>
+<br>
 
 Today, we will start from taking a look at regularzation methods filtering variant calls to analyzing single
 cell RNA-seq data across various contexts of high-throughput genomic
@@ -20,6 +21,7 @@ we we will guide from the beginning, just in case you may get lost
 from the beginning.
 
 ---
+<br>
 
 ### Schedule:
 
@@ -39,20 +41,11 @@ from the beginning.
 |         |                       | **Covariate-adjusted model**                                  |
 
 <br>
-
 ### Instructors:
 
 Kipoong Kim
+
 ---
-
-## Topics:
-
-### I) Variant annotation, filtering, and data harmonization
-- [I-1. Variant Filtering](../class-material/day2-filtering.html)
-- [I-2. Variant Annotation](../class-material/day2-annotation.html)
-
-—- Coffee Break [10 mins] —
-## Introdution to regularization
 
 
 
@@ -64,84 +57,134 @@ Kipoong Kim
 <script src="//cdn.jsdelivr.net/highlight.js/9.5.0/highlight.min.js"></script>
 <script>hljs.initHighlightingOnLoad();</script>
 
-## Setup
-### Importing the dataset and library
-><pre><code class="R">install.packages("glmnet")
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+<br>
+
+### 0. Setup
+#### 0-1. Installing and calling R packages
+```
+install.packages("glmnet")
+install.packages("qqman")
 library(glmnet)
-</code></pre>
-
-
-><pre><code class="r">load("[Data]PNU-winter-workshop-2019.RData")
+library(qqman)
+```
+<br>
+#### 0-2. Importing the dataset
+```
+load("[Data]PNU-winter-workshop-2019.RData")
 ls()
 str(workshop.data)
 attach(workshop.data)
-
-### Description of sequencing data
-
-><pre><code class="r">str(x)
+```
+<br>
+#### 0-3. Descriptions of data
+```
+str(x)
 str(y)
 str(ref)
-
-### Elements of glmnet
-
-><pre><code class="r">ls("package:glmnet")
-
-### Help pages for more details
-><pre><code class="r">help(glmnet)
+```
+<br>
+#### 0-4. Elements of glmnet
+```
+ls("package:glmnet")
+```
+<br>
+#### 0-5. Help pages for more details
+```
+help(glmnet)
 vignette("glmnet_beta", package="glmnet")
-
-## The Lasso
-### Fitting the lasso model with alpha=1
-><pre><code class="r">fit.lasso <- glmnet(x, y, alpha=1, nlambda=10, family="gaussian")
+```
+<br>
+### 1. The Lasso
+#### 1-1. Fitting the lasso model with alpha=1
+```
+fit.lasso <- glmnet(x, y, alpha=1, nlambda=10, family="gaussian")
 fit.lasso
-
-### Solution path for lasso
-><pre><code class="r">plot( fit.lasso, xvar="norm", label=TRUE )
-
-### Getting coefficients for the lasso regression
-><pre><code class="r">dim( fit.lasso$beta )
+```
+<br>
+#### 1-2. Solution path for lasso
+```
+plot( fit.lasso, xvar="norm", label=TRUE )
+```
+<br>
+#### 1-3. Getting coefficients for the lasso regression
+```
+dim( fit.lasso$beta )
 head( fit.lasso$beta )
-
-><pre><code class="r">beta_coef <- coef( fit.lasso, s = fit.lasso$lambda[5] )
+```
+<br>
+#### 1-4. Other functions to get coefficients
+```
+beta_coef <- coef( fit.lasso, s = fit.lasso$lambda[5] )
 beta_pred <- predict( fit.lasso, type="coef", s = fit.lasso$lambda[5] )
-
-### Comparison betwwen three approaches to get coefficients
-><pre><code class="r">tmp <- c(33, 54, 192, 350, 361, 435)
+```
+<br>
+#### 1-5. Comparison betwwen three approaches to retrieve coefficients
+```
+tmp <- c(33, 54, 192, 350, 361, 435)
 data.frame(
   fit.lasso$beta[tmp, 5],
   beta_coef[tmp+1,],
   beta_pred[tmp+1,]
 )
-
-### Coefficients in solution path for the Lasso
-><pre><code class="r">plot(fit.lasso, xvar="lambda", label=TRUE)
+```
+<br>
+#### 1-6. Coefficients in solution path for the Lasso
+```
+plot(fit.lasso, xvar="lambda", label=TRUE)
 abline(v=log(116.7), cex=2, col="red")
-
-
-### Selecting the tuning parameter using cross-validation
-><pre><code class="r">cv.lasso <- cv.glmnet(x, y, alpha=1, nlambda=100, family="gaussian", type.measure = "mse")
+```
+<hr>
+<br>
+### 2. Cross-validation
+#### 2-1. Selecting the tuning parameter using cross-validation
+```
+cv.lasso <- cv.glmnet(x, y, alpha=1, nlambda=100, family="gaussian", type.measure = "mse")
 str(cv.lasso, max.level = 1)
-
-### CV curve for cv.glmnet
-><pre><code class="r">plot(cv.lasso)
-
-### The optimal lambda value
-><pre><code class="r">wh.1se <- min( which( cv.lasso$cvm < cv.lasso$cvup[which.min(cv.lasso$cvm)] ))
+```
+<br>
+#### 2-2. CV curve for cv.glmnet
+```
+plot(cv.lasso)
+```
+<br>
+#### 2-3. The optimal lambda value
+```
+wh.1se <- min( which( cv.lasso$cvm < cv.lasso$cvup[which.min(cv.lasso$cvm)] ))
 cv.lasso$lambda[ wh.1se ]
 cv.lasso$lambda.1se
-
-><pre><code class="r">fit.lasso.min <- glmnet(x, y, alpha=1, family="gaussian", lambda=cv.lasso$lambda.min)
+```
+<br>
+#### 2-4. The Lasso models with the optimal lambda values ($$\lambda_{min}, \lambda_{1se}$$)
+```
+fit.lasso.min <- glmnet(x, y, alpha=1, family="gaussian", lambda=cv.lasso$lambda.min)
 fit.lasso.1se <- glmnet(x, y, alpha=1, family="gaussian", lambda=cv.lasso$lambda.1se)
 fit.lasso.min
 fit.lasso.1se
-
-><pre><code class="r">lasso.nonzero.min <- which( fit.lasso.min$beta != 0 )
+```
+<br>
+#### 2-5. Our final Lasso model with $$\lambda_{min}$$
+```
+lasso.nonzero.min <- which( fit.lasso.min$beta != 0 )
 str(lasso.nonzero.min)
+```
+<hr><br>
+### 3. Visualization in Manhattan plot
+#### 3-1. P-values for univariate analysis
+```
+summary( lm(y~x[, 1]) )
 
-### Visualization in manhattan plot
-><pre><code class="r">summary( lm(y~x[, 1]) )
-
-><pre><code class="r">lm.pvalue <- NULL
+lm.pvalue <- NULL
 for( j in 1:ncol(x) ){
   lm.coef <- summary( lm(y~x[, j]) )$coef
   if( nrow(lm.coef)==2 ){
@@ -151,196 +194,216 @@ for( j in 1:ncol(x) ){
   }
 }
 
-><pre><code class="r">str( lm.pvalue )
+str( lm.pvalue )
 summary( lm.pvalue )
-
-#### NA is from the variables which have only one value.
-><pre><code class="r">na.lm.pvalue <- which(is.na(lm.pvalue))
+```
+<br>
+#### 3-2. Treating the missing values
+```
+na.lm.pvalue <- which(is.na(lm.pvalue))
 table( x[, na.lm.pvalue[1]] )
+```
+- NA is from the variables which have only one value.
 
-#### Input data format for manhattan plot
-><pre><code class="r">df.lm.pvalue <- data.frame( ref, p=lm.pvalue)
+<br>
+#### 3-3. Formatting input data for manhattan plot
+```
+df.lm.pvalue <- data.frame( ref, p=lm.pvalue)
 colnames(df.lm.pvalue) <- c("SNP", "CHR", "BP", "P")
-
-><pre><code class="r">bonferroni.cutoff <- 0.05/ncol(x) # Bonferroni significant line
+```
+<br>
+#### 3-4. Drawing Manhattan plot with green-colored dots (variables selected by the **Lasso**)
+```
+bonferroni.cutoff <- 0.05/ncol(x) # Bonferroni significant line
 qqman::manhattan(df.lm.pvalue,
                  chr="CHR", bp="BP", p="P", snp="SNP",
                  suggestiveline=-log10(bonferroni.cutoff),
                  highlight=df.lm.pvalue[lasso.nonzero.min,"SNP"],
                  ylim=c(0,10))
+```
+<hr>
+<br>
 
-
-### Prediction
-#### Split training and test set
-><pre><code class="r">set.seed(20190130)
+### 4. Prediction
+#### 4-1. Split training and test set
+```
+set.seed(20190130)
 idx.train <- sample(nrow(x), 0.9*nrow(x))
 idx.test <- (1:nrow(x))[-idx.train]
-
-#### Training a regularization model in which a tuning paramter is selected using validation set
-><pre><code class="r">cv.lasso.train <- cv.glmnet(x[idx.train,], y[idx.train], family="gaussian",
+```
+<br>
+#### 4-2. Training a regularization model in which a tuning paramter is selected using validation set
+```
+cv.lasso.train <- cv.glmnet(x[idx.train,], y[idx.train], family="gaussian",
                             alpha=1, type.measure="mse")
 
-><pre><code class="r">fit.lasso.train.min <- glmnet(x[idx.train,], y[idx.train], family="gaussian",
+fit.lasso.train.min <- glmnet(x[idx.train,], y[idx.train], family="gaussian",
                               alpha=1, lambda=cv.lasso.train$lambda.min)
 fit.lasso.train.1se <- glmnet(x[idx.train,], y[idx.train], family="gaussian",
                               alpha=1, lambda=cv.lasso.train$lambda.1se)
 fit.lasso.train.min
 fit.lasso.train.1se
-
-#### Prediction
-><pre><code class="r">newx <- x[idx.test, ]
+```
+<br>
+#### 4-3. Predicting the new data
+```
+newx <- x[idx.test, ]
 newy.fit.min <- predict( fit.lasso.train.min, newx, type="response" )
 
-><pre><code class="r">head(
+head(
   data.frame(
     test.y=y[idx.test],
     fit.newy.min=as.numeric(newy.fit.min)
   )
 )
+```
+  - **Notification** <br>Since regularization procedures are not prediction model, we recommend "randomforest" or "boosting model" for prediction
 
-##### Since regularization procedures are not prediction model,
-##### we recommend "randomforest" or "boosting model" for prediction
+<br>
+ <hr> <hr> <br><br>
 
-
-
-## Elastic-net with alpha$\in(0, 1)$
-
-
-### Generate binary response (y2)
-><pre><code class="r">y2 <- ifelse( y > median(y), 1, 0 )
+### 5. Elastic-net with alpha in [0, 1]
+#### 5-1. Generating binary response "y2"
+```
+y2 <- ifelse( y > median(y), 1, 0 )
 table(y2)
-
-### Fitting elastic-net model
-><pre><code class="r">fit.enet <- glmnet(x, y2, alpha=0.5, nlambda=10, family="binomial")
+```
+<br>
+#### 5-2. Fitting elastic-net model
+```
+fit.enet <- glmnet(x, y2, alpha=0.5, nlambda=10, family="binomial")
 fit.enet
-
-
-### Selecting the tuning parameters (alpha, lambda)
-#### fix up a foldid}
-><pre><code class="r">set.seed(1234)
+```
+<hr><br>
+### 6. Selecting the tuning parameters ($$\alpha, \lambda$$)
+#### 6-1. Fixing subsamples with "foldid"
+```
+set.seed(1234)
 foldid <- sample(rep(1:10, length=length(y)))
 table(foldid)
-
-### Cross-validation with two tuning parameters
-><pre><code class="r">alpha.grid <- seq(0, 1, 0.1)
+```
+<br>
+#### 6-2. Cross-validation for two tuning parameters with "dev" measure
+```
+alpha.grid <- seq(0, 1, 0.1)
 cv.enet <- as.list( 1:length(alpha.grid) )
 for( h in 1:length(alpha.grid) ){
   cv.enet[[h]] <- cv.glmnet(x, y2, family="binomial", type.measure="dev",
                             alpha=alpha.grid[h], nlambda=15,
                             foldid=foldid)
 }
-
-><pre><code class="r">cv.enet.cvm <- NULL
+```
+<br>
+#### 6-3. Combining the results of cross-validation according to $$\alpha$$.
+```
+cv.enet.cvm <- NULL
 for( h in 1:length(cv.enet)){
   cv.enet.cvm <- cbind(cv.enet.cvm, cv.enet[[h]]$cvm)
 }
 dimnames(cv.enet.cvm) <- list( paste0("lambda.",1:14), paste0("alpha.",1:9) )
-
-><pre><code class="r">opt.tune <- which( cv.enet.cvm == min(cv.enet.cvm), arr.ind=TRUE )
+```
+<br>
+#### 6-4. Finding the optimal tuning parameters with two approaches ($$\lambda_{min}, \lambda_{1se}$$)
+```
+opt.tune <- which( cv.enet.cvm == min(cv.enet.cvm), arr.ind=TRUE )
 opt.tune
 
-><pre><code class="r">opt.alpha <- alpha.grid[ opt.tune[2] ]
+opt.alpha <- alpha.grid[ opt.tune[2] ]
 opt.lambda.min <- cv.enet[[ opt.tune[2] ]]$lambda.min
 opt.lambda.1se <- cv.enet[[ opt.tune[2] ]]$lambda.1se
 c(opt.alpha=opt.alpha, opt.lambda.min=opt.lambda.min, opt.lambda.1se=opt.lambda.1se)
+```
 
-
-### Grid search for the alpha less than 0.1
-><pre><code class="r">alpha.grid2 <- seq(0.01, 0.1, 0.02)
+<br>
+#### 6-5. Further grid search for the alpha less than 0.1
+```
+alpha.grid2 <- seq(0.01, 0.1, 0.02)
 cv.enet2 <- as.list( 1:length(alpha.grid2) )
 for( h in 1:length(alpha.grid2) ){
   cv.enet2[[h]] <- cv.glmnet(x, y2, family="binomial", type.measure="dev",
                              alpha=alpha.grid2[h], nlambda=15,
                              foldid=foldid)
 }
-
-><pre><code class="r">cv.enet.cvm2 <- NULL
+```
+<br>
+#### 6-6. Determining whether to view the detail ranges.
+```
+cv.enet.cvm2 <- NULL
 for( h in 1:length(cv.enet2)){
   cv.enet.cvm2 <- cbind(cv.enet.cvm2, cv.enet2[[h]]$cvm)
 }
 dimnames(cv.enet.cvm2) <- list( paste0("lambda.",1:14), paste0("alpha.",1:5) )
 
-><pre><code class="r">opt.tune2 <- which( cv.enet.cvm2 == min(cv.enet.cvm2), arr.ind=TRUE )
+opt.tune2 <- which( cv.enet.cvm2 == min(cv.enet.cvm2), arr.ind=TRUE )
 opt.tune2
 
-><pre><code class="r">opt.alpha2 <- alpha.grid2[ opt.tune2[2] ]
+opt.alpha2 <- alpha.grid2[ opt.tune2[2] ]
 opt.lambda.min2 <- cv.enet2[[ opt.tune2[2] ]]$lambda.min
 opt.lambda.1se2 <- cv.enet2[[ opt.tune2[2] ]]$lambda.1se
 c(opt.alpha2=opt.alpha2, opt.lambda.min2=opt.lambda.min2, opt.lambda.1se2=opt.lambda.1se2)
+```
+- Since $$\alpha=0.1$$ and $$\alpha=0.01$$ are also small value enough to have many variables, we stop here.
 
-
-><pre><code class="r">fit.enet.opt.min <- glmnet(x, y2, family="binomial", alpha=opt.alpha, lambda=opt.lambda.min)
+<br>
+#### 6-7. The optimal elastic-net models with $$\alpha=0.1$$.
+```
+fit.enet.opt.min <- glmnet(x, y2, family="binomial", alpha=opt.alpha, lambda=opt.lambda.min)
 fit.enet.opt.1se <- glmnet(x, y2, family="binomial", alpha=opt.alpha, lambda=opt.lambda.1se)
 fit.enet.opt.min2 <- glmnet(x, y2, family="binomial", alpha=opt.alpha2, lambda=opt.lambda.min2)
 fit.enet.opt.1se2 <- glmnet(x, y2, family="binomial", alpha=opt.alpha2, lambda=opt.lambda.1se2)
 
-><pre><code class="r">fit.enet.opt.min
+fit.enet.opt.min
 fit.enet.opt.min2
 min(cv.enet.cvm)
 min(cv.enet.cvm2)
+```
+  - We choose the values of opt.alpha ($$\alpha=0.1$$) and opt.lambda.min ($$\lambda_{min}$$ corresponding to $$\alpha=0.1$$) as the the optimal tuning paramters
 
-##### We choose the values of opt.alpha and opt.lambda.min as the the optimal tuning paramters
+<hr><br>
 
-### The significant variables of elastic-net in Mahattan plot
-><pre><code class="r">nonzero.enet.opt <- which( fit.enet.opt$beta != 0 )
+### 7. Manhattan plot with the significant variables of the optimal elastic-net model ("fit.enet.opt.min")
+```
+nonzero.enet.opt <- which( fit.enet.opt$beta != 0 )
 bonferroni.cutoff <- 0.05/ncol(x)
 qqman::manhattan(df.lm.pvalue,
                  chr="CHR", bp="BP", p="P", snp="SNP",
                  suggestiveline=-log10(bonferroni.cutoff),
                  highlight=df.lm.pvalue[nonzero.enet.opt,"SNP"],
                  ylim=c(0,10))
+```
 
+<hr><br>
 
-## Penalty factors
+### 8. Covariate-adjusted model
+  - If we consider the variable known to be associated with response variable, we involve them as covariates in a model.
 
-##### If we consider the variable known to be associated with response variable,
-##### we involve them as covariates in a model.
-
-
-### Generating arbitrary covariates
-><pre><code class="r">cov1 <- NULL
+<br>
+#### 8-1. Generating arbitrary covariates
+```
+cov1 <- NULL
 cov1[y2==0] <- rbinom(sum(y2==0), 1, prob=0.8)
 cov1[y2==1] <- rbinom(sum(y2==1), 1, prob=0.4)
 table(y2, cov1)
 
-><pre><code class="r">cov2 <- NULL
+cov2 <- NULL
 cov2[y2==0] <- rpois(sum(y2==0), lambda=40)
 cov2[y2==1] <- rpois(sum(y2==1), lambda=60)
 boxplot(cov2~y2)
-
-><pre><code class="r">x.cov <- cbind(cov1, cov2, x)
-
-### Penalty.factor
-><pre><code class="r">pf <- c(0, 0, rep(1,ncol(x)) )
+```
+<br>
+#### 8-2. Penalty.factor
+```
+x.cov <- cbind(cov1, cov2, x)
+pf <- c(0, 0, rep(1,ncol(x)) )
 table(pf)
 
-><pre><code class="r">pf.fit <- glmnet(x.cov, y2, family="binomial", penalty.factor = pf, nlambda=10 )
+pf.fit <- glmnet(x.cov, y2, family="binomial", penalty.factor = pf, nlambda=10 )
 pf.fit
+```
+  - We also adjust the eigen vecotrs or the n-th principle components to acommodate population structure. <br>
 
-><pre><code class="r">alpha.grid <- seq(0, 1, 0.1)
-cv.pf <- NULL
-for( h in 1:length(alpha.grid) ){
-  cv.pf[[h]] <- cv.glmnet( x.cov, y2, family="binomial", type.measure="dev",
-                           penalty.factor=pf,
-                           alpha=alpha.grid[h], nlambda=15 )
-}
+<br>
 
-><pre><code class="r">cv.pf.cvm <- NULL
-for( h in 1:length(cv.pf) ){
-  cv.pf.cvm <- cbind( cv.pf.cvm, cv.pf[[h]]$cvm )
-}
-opt.tune.pf <- which( cv.pf.cvm == min(cv.pf.cvm), arr.ind=TRUE )
-
-><pre><code class="r">opt.alpha.pf <- alpha.grid[ opt.tune.pf[2] ]
-opt.lambda.min.pf <- cv.pf[[ opt.tune.pf[1] ]]$lambda.min
-opt.lambda.1se.pf <- cv.pf[[ opt.tune.pf[1] ]]$lambda.1se
-
-><pre><code class="r">fit.pf.opt.min <- glmnet( x.cov, y2, family="binomial", penalty.factor=pf,
-                          alpha=opt.alpha.pf, lambda=opt.lambda.min.pf )
-fit.pf.opt.1se <- glmnet( x.cov, y2, family="binomial", penalty.factor=pf,
-                          alpha=opt.alpha.pf, lambda=opt.lambda.1se.pf )
-fit.pf.opt.min
-fit.pf.opt.1se
-
-
-><pre><code class="r">#save.image(file="part3.RData")
+```
+#save.image(file="part3.RData")
+```

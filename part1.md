@@ -56,9 +56,7 @@ from the beginning.
 <br>
 
 ### Instructors:
-Hyun Min Kang (HMK)
-Goo Jun (GJ)
-
+Hansong Lee
 
 <hr>
 <br>

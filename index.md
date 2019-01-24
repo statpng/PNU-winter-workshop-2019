@@ -22,11 +22,11 @@ layout: page
 유전체 자료의 예시로서 imputed wild bean dataset을 사용한다. -->
 
 The dramatic advance of high-throughput in the last decade has produced tremendous amount genomic, epigenomic, and transcriptomic sequence data at an unprecedented scale.
-Several factors such as M&A of Illumina and PacBio in last year, PromethION technology of ONT, and MGISEQT7 kit of BGI will make the price of whole genome sequencing much cheaper.
+Several factors such as M&A of Illumina and PacBio in last year, PromethION technology of ONT, and MGISEQT7 kit of BGI will make the price of whole genome sequencing much cheaper.\\
 In this lecture, we introduce students to two methods for analysis of genomic sequencing data, and learn how to perform them.
-The first is *GAPIT*, a tool for univariate analysis which is the most widely used for GWAS in bioinformatics.
-The second is *regularization procedure*, which exceeds univariate analysis.
-Using two methods, *univariate analysis* and *regulrization procedure*, we will analyze the imputed wild bean dataset and learn how to interpret the results.
+The first is *GAPIT*, a tool for univariate analysis which is the most widely used for GWAS in bioinformatics using Mixed Linear Model to accommodate population structure.
+The second is *regularization procedures*, which outperform univariate analysis using the penalty function.
+Using two methods, *univariate analysis* and *regulrization procedure*, we will analyze the imputed sequencing dataset and learn how to interpret the results.
 
 
 <!-- **Audience:** This course is intended for researchers who are actively engaged in
@@ -38,7 +38,7 @@ basic UNIX skills (such as free contents material at
 
 <!-- **Requirements:** Participants must bring a laptop with specific [software installed]({{ site.baseurl }}/setup/). -->
 
-**When:** January 28-30 (2019), 16:00 PM - 17:00 PM
+**When:** January 28-30 (2019), 16:00 PM - 17:30 PM
 
 **Where:** 313-103, Pusan National University, Pusan, Korea.
 
