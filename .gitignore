@@ -3,3 +3,4 @@ _site/*
 _site/feed.xml
 .sass-cache
 *~
+_ignore
