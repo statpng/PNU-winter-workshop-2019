@@ -10,19 +10,6 @@ permalink: /part2/
 <hr>
 <br>
 
-Today, we will start from taking a look at regularzation methods filtering variant calls to analyzing single
-cell RNA-seq data across various contexts of high-throughput genomic
-analysis.
-
-We will assume that you have basic UNIX skills, which can be obtained
-by taking a free online course
-[HERE](https://www.codecademy.com/learn/learn-the-command-line), but
-we we will guide from the beginning, just in case you may get lost
-from the beginning.
-
----
-<br>
-
 ### Schedule:
 
 | Part    | Time                  | Topics                                                        |
