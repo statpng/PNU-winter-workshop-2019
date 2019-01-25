@@ -28,6 +28,12 @@ The first is *GAPIT*, a tool for univariate analysis which is the most widely us
 The second is *regularization procedures*, which outperform univariate analysis using the penalty function.
 Using two methods, *univariate analysis* and *regulrization procedure*, we will analyze the imputed sequencing dataset and learn how to interpret the results.
 
+We will assume that you have basic R programming skills, which can be obtained
+by taking a free online course
+[Datacamp](https://www.datacamp.com/courses/free-introduction-to-r) or
+[Coursera](https://www.coursera.org/courses?query=r%20programming).
+
+
 
 <!-- **Audience:** This course is intended for researchers who are actively engaged in
 genomics research and interested beginners, including laboratory scientists and clinicians with a

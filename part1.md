@@ -11,14 +11,6 @@ permalink: /part1/
 <hr>
 <br>
 
-Today, we will start from taking a look at regularzation methods filtering variant calls to analyzing single
-cell RNA-seq data across various contexts of high-throughput genomic
-analysis.
-
-
----
-<br>
-
 ### Schedule:
 
 | Part    |  Time                 | Topics                                                      |

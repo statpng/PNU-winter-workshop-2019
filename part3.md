@@ -9,17 +9,6 @@ permalink: /part3/
 
 <br>
 
-Today, we will start from subset selection to selection probabilty analyzing
-high-dimensional genomic sequencing data.
-
-We will assume that you have basic R programming skills, which can be obtained
-by taking a free online course
-[Datacamp](https://www.datacamp.com/courses/free-introduction-to-r) or
-[Coursera](https://www.coursera.org/courses?query=r%20programming).
-
----
-<br>
-
 ### Schedule:
 
 | Part    | Time                   | Topics                                                     |
