@@ -7,6 +7,7 @@ permalink: /part3/
 
 # Part 3. Selection probabilities.
 
+<hr>
 <br>
 
 ### Schedule:
