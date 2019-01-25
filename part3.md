@@ -57,28 +57,6 @@ Kipoong Kim
 
 <br>
 
-### Introdution to selection probability
-Regularization procedure, 특히 lasso,는 변수선택 측면에서 매우 좋은 성능을 보여줌.
-그러나 최적의 tuning parameter를 선택하는 문제에 있어서 매우 신중해야함.
-tuning parameter에 따라 coefficients 값에 차이가 있는 불안정성을 보여줌.
-tuning parameter에 관계없이 변수 선택에 대한 지표를 나타내는
-selection probability를 제안함.
-
-selection probability는 다음과 같은 알고리즘을 통해 계산됨.
-저희는 현재 elastic-net 모형에서 lambda와 alpha 두개의 tuning parameters를
-갖고 있기 때문에, 모든 alpha와 lambda 그리드에 대하여
-N/2 사이즈의 subsample을 선택하여 elastic-net 모형의 coefficients를 구하는
-과정을 총 K번 반복함. 이 때, K는 많을수록 좋으며 최소 100이상의 값을
-가지는 것을 추천함.
-K번의 반복을 통해 각가의 tuning parameter grid에서 각 변수가 선택된
-횟수의 최댓값을 K로 나누어 selection probability를 계산함.
-그리고 tuning parameter grid 중에서 sp의 최대값을 최종 sp로 정의함.
-
-간단하게 말해서 selection probability는 총 K번 반복 중에서
-몇번 선택되는지 비율의 tuning parameter에 대한 최댓값을 뜻함.
-
-<br>
-
 ### 0. Data setup (equivalent to part2)
 ```
 library(glmnet)
@@ -91,7 +69,6 @@ attach(workshop.data)
 <hr><br>
 
 ### 1. An algorithm of selection probabilities
-
 
 ||**Algorithm** Selection probabilities with elastic-net |
 |--:|:------------ |
