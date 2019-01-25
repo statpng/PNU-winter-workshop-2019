@@ -42,17 +42,10 @@ Kipoong Kim
 
 ---
 
-
-<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.5.0/styles/default.min.css">
-<script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.5.0/highlight.min.js"></script>
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.6.0/styles/ir-black.min.css">
+<script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.6.0/highlight.min.js"></script>
 <script>hljs.initHighlightingOnLoad();</script>
 
-<link rel="stylesheet" href="//cdn.jsdelivr.net/highlight.js/9.5.0/styles/default.min.css">
-<script src="//cdn.jsdelivr.net/highlight.js/9.5.0/highlight.min.js"></script>
-<script>hljs.initHighlightingOnLoad();</script>
-
-
-<!-- dynamically load mathjax for compatibility with self-contained -->
 <script>
   (function () {
     var script = document.createElement("script");
@@ -114,7 +107,7 @@ attach(workshop.data)
 |----------- |
 |5: | **end for** |
 |----------- |
-|6: | $$SP_j^\Lambda = \frac{1}{K}\#\{k<=K: \hat{\beta}_j^\Lambda(I_k) \ne 0 \} $$ |
+|6: | $$SP_j^\Lambda = \frac{1}{K}\#\{k\le K: \hat{\beta}_j^\Lambda(I_k) \ne 0 \} $$ |
 |------------- |
 |7: | $$SP_j = \underset{\Lambda}{\max}SP_j^\Lambda,~~ j=1,\cdots, p$$ |
 |------------- |
@@ -147,6 +140,7 @@ load("[object]lambda.mat.RData")
 lambda.grid <- seq( summary(lambda.mat)[2], summary(lambda.mat)[4], length.out = 100 )
 range(lambda.grid)
 ```
+
 <br>
 
 #### 2-2. Applying regularization with the same subsamples for a grid of tuning paramters.
@@ -173,7 +167,7 @@ if( FALSE ){
 <br>
 
 #### 2-3. Retrieving the selection probabilities.
-```{r}
+```
 load("[object]sp.array.RData")
 
 sp <- apply( sp.array, 1, max )

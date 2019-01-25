@@ -7,3 +7,13 @@ github_username:  statpng
 
 # Build settings
 markdown: kramdown
+
+highlighter: rouge
+
+
+kramdown:
+  # use Github Flavored Markdown
+  input: GFM
+  syntax_highlighter: rouge
+
+gems: ['jekyll-paginate']

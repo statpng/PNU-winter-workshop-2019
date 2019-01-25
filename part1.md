@@ -4,6 +4,8 @@ title: Part 1
 permalink: /part1/
 ---
 
+
+
 # Part 1. Genome Association and Prediction Integrated Tool (GAPIT).
 
 <hr>
@@ -39,26 +41,9 @@ Hansong Lee
 
 ---
 
-
-
-<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.5.0/styles/default.min.css">
-<script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.5.0/highlight.min.js"></script>
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.6.0/styles/ir-black.min.css">
+<script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.6.0/highlight.min.js"></script>
 <script>hljs.initHighlightingOnLoad();</script>
-
-<link rel="stylesheet" href="//cdn.jsdelivr.net/highlight.js/9.5.0/styles/default.min.css">
-<script src="//cdn.jsdelivr.net/highlight.js/9.5.0/highlight.min.js"></script>
-<script>hljs.initHighlightingOnLoad();</script>
-
-
-<!-- dynamically load mathjax for compatibility with self-contained -->
-<script>
-  (function () {
-    var script = document.createElement("script");
-    script.type = "text/javascript";
-    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
-    document.getElementsByTagName("head")[0].appendChild(script);
-  })();
-</script>
 
 <br>
 
@@ -106,15 +91,15 @@ myX <- myX[-wone,]
 dim(myX)  #161798    381
 ```
 <br>
-### (Practice 1) Treating heterozygosity
-#### Heterozygosity I
+### 1. Treating heterozygosity
+#### 1-1. Heterozygosity I
 ```
 setwd("C:/Users/pc/Desktop/gapitex/result1")
 result1 <- GAPIT(Y=myY, G=myX)
 summary(myY)
 ```
 <br>
-#### Heterozygosity II
+#### 1-2. Heterozygosity II
 ```
 myGD= apply(myX[-1,-(1:11)], 1,
             function(one) GAPIT.Numericalization(one, bit=2, impute="Middle", 	Major.allele.zero=F))
@@ -132,7 +117,7 @@ dim(myX)  #161677    381
 ```
 <br>
 
-#### PCoA I
+#### 1-3. PCoA I
 ```
 library(ggplot2)
 dim(myGD)
@@ -144,7 +129,7 @@ mds.values <- mds.stuff$points
 mds.data <- data.frame(Sample=1:nrow(myY),  X=mds.values[,1], Y=mds.values[,2])
 ```
 <br>
-#### PCoA II
+#### 1-4. PCoA II
 ```
 pdf("PCoA.pdf")
 gg <- ggplot(data=mds.data, aes(x=X, y=Y, label=Sample)) +
@@ -157,14 +142,14 @@ print(gg)
 dev.off()
 ```
 <br>
-### Practice 2. Imputation and controlling MAF
+### 2. Imputation and controlling MAF
 ```
 setwd("C:/Users/pc/Desktop/gapitex/result2")
 result2 <- GAPIT(Y=myY, G=myX, SNP.impute="Middle", SNP.MAF=0.02)
 ```
 <br>
-### Practice 3. The optimal PC number
-#### PC number
+### 3. The optimal PC number
+#### 3-1. PC number
 ```
 setwd("C:/Users/pc/Desktop/gapitex/result3")
 result3 <- GAPIT(Y=myY, G=myX, SNP.MAF=0.02, PCA.total=100, Model.selection=TRUE)
@@ -175,7 +160,7 @@ BIC <- BICdata[,2]
 BICdata[which.max(BIC),1]
 ```
 <br>
-#### Genomic inflation factor
+#### 3-2. Genomic inflation factor
 ```
 pvaldata <-
 read.csv("C:/Users/pc/Desktop/gapitex/result3/GAPIT.MLM.Aspartic.GWAS.Results.csv", header=T)
@@ -187,7 +172,7 @@ lambda = round(median(z^2) / 0.454, 3)
 lambda
 ```
 <br>
-### Practice 4. Compressed MLM (CMLM)
+### 4. Compressed MLM (CMLM)
 ```
 setwd("C:/Users/pc/Desktop/gapitex/result4")
 result4 <- GAPIT(Y=myY, G=myX,
@@ -199,8 +184,8 @@ result4 <- GAPIT(Y=myY, G=myX,
                                     )
 ```
 <br>
-### Practice 5. Enriched CMLM (ECMLM)
-#### ECMLM
+### 5. Enriched CMLM (ECMLM)
+#### 5-1. ECMLM
 ```
 setwd("C:/Users/pc/Desktop/gapitex/result5")
 result5 <- GAPIT(Y=myY, G=myX,
@@ -214,7 +199,7 @@ result5 <- GAPIT(Y=myY, G=myX,
 )
 ```
 <br>
-#### Small p-values
+#### 5-2. Small p-values
 ```
 # small p-value
 pvaldata <- read.csv("C:/Users/pc/Desktop/gapitex/result5/GAPIT.CMLM.Aspartic.GWAS.Results.csv", header=T)

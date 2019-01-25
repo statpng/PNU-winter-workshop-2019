@@ -49,14 +49,9 @@ Kipoong Kim
 
 
 
-<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.5.0/styles/default.min.css">
-<script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.5.0/highlight.min.js"></script>
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.6.0/styles/ir-black.min.css">
+<script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.6.0/highlight.min.js"></script>
 <script>hljs.initHighlightingOnLoad();</script>
-
-<link rel="stylesheet" href="//cdn.jsdelivr.net/highlight.js/9.5.0/styles/default.min.css">
-<script src="//cdn.jsdelivr.net/highlight.js/9.5.0/highlight.min.js"></script>
-<script>hljs.initHighlightingOnLoad();</script>
-
 
 <!-- dynamically load mathjax for compatibility with self-contained -->
 <script>
