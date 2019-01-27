@@ -48,22 +48,6 @@ basic UNIX skills (such as free contents material at
 
 **Where:** 313-103, Pusan National University, Pusan, Korea.
 
-<br>
-<hr>
-<br>
-
-#### [Part 0. Setup]({{ site.baseurl }}/part1/)
-
-| Part | Time           | Topics                   |
-| :-----: |   :--------------:    | :-----------------------|
-| 0       | Introduction          | **1.Objectives**          |
-|         |                       | **2.Methods**             |
-| 0       | Setup                 | **1.Importing data**      |
-|         |                       | **2.Data pre-processing** |
-|         |                       | **3.Quality-control(QC)** |
-|         |                       | **4.Imputation**          |
-
-
 
 <br>
 <hr>
@@ -72,7 +56,7 @@ basic UNIX skills (such as free contents material at
 
 #### [Part 1. Genome Association and Prediction Integrated Tool (GAPIT).]({{ site.baseurl }}/part1/)
 
-| Part    |  Time                 | Topics                                                      |
+| Part    |  Title                 | Topics                                                      |
 | :-----: |   :--------------:    | :-----------------------                                    |
 | I       | GAPIT                 | **1.Introduction of Genome-wide Association Study(GWAS)**   |
 |         |                       | **2.Statistical Model of GAPIT**                            |
@@ -91,7 +75,7 @@ basic UNIX skills (such as free contents material at
 
 #### [Part 2. Regularization procedures for variable selection.]({{ site.baseurl }}/part2/)
 
-| Part    | Time                  | Topics                                                        |
+| Part    | Title                  | Topics                                                        |
 | :-----: |   :--------------:    | :-----------------------                                      |
 | II      | Regularization        | **Variable selection in high-dimensional data**               |
 |         |                       | **Regularization procedures**                                 |
@@ -114,7 +98,7 @@ basic UNIX skills (such as free contents material at
 
 #### [Part 3. Selection probabilities.]({{ site.baseurl }}/part3/)
 
-| Part    | Time                   | Topics                                                     |
+| Part    | Title                   | Topics                                                     |
 | :-----: |   :--------------:     | :-----------------------                                   |
 | III     | Selection probabilties | **An algorithm of selection probabilities**                |
 |         |                        | &nbsp; &nbsp; - Setting a grid of tuning parameters        |

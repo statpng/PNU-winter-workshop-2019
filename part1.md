@@ -13,7 +13,7 @@ permalink: /part1/
 
 ### Schedule:
 
-| Part    |  Time                 | Topics                                                      |
+| Part    |  Title                 | Topics                                                      |
 | :-----: |   :--------------:    | :-----------------------                                    |
 | I       | GAPIT                 | **1.Introduction of Genome-wide Association Study(GWAS)**   |
 |         |                       | **2.Statistical Model of GAPIT**                            |

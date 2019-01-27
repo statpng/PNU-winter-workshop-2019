@@ -12,7 +12,7 @@ permalink: /part2/
 
 ### Schedule:
 
-| Part    | Time                  | Topics                                                        |
+| Part    | Title                  | Topics                                                        |
 | :-----: |   :--------------:    | :-----------------------                                      |
 | II      | Regularization        | **Variable selection in high-dimensional data**               |
 |         |                       | **Regularization procedures**                                 |

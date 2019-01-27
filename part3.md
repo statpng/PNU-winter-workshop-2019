@@ -12,7 +12,7 @@ permalink: /part3/
 
 ### Schedule:
 
-| Part    | Time                   | Topics                                                     |
+| Part    | Title                   | Topics                                                     |
 | :-----: |   :--------------:     | :-----------------------                                   |
 | III     | Selection probabilties | **An algorithm of selection probabilities**                |
 |         |                        | &nbsp; &nbsp; - Setting a grid of tuning parameters          |
