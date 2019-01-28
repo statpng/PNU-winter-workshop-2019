@@ -70,7 +70,7 @@ dim(myY);dim(myX)
 genedata <-  myX[-1,-c(1:11)]
 na <- apply(genedata, 1, function(x) sum(x=='NN'))
 length(na)
-max(na); max(na)/nrow(genedata) # maximum NA percent: about 0.1%
+max(na); max(na)/ncol(genedata) 
 ```
 <br>
 #### 0-3. Preprocess (check genotypes)
@@ -84,15 +84,13 @@ dim(myX)  #161798    381
 ```
 <br>
 ### 1. Treating heterozygosity
-#### 1-1. Heterozygosity I
+#### 1-1. Heterozygosity
 ```
 setwd("C:/Users/pc/Desktop/gapitex/result1")
 result1 <- GAPIT(Y=myY, G=myX)
 summary(myY)
-```
-<br>
-#### 1-2. Heterozygosity II
-```
+
+
 myGD= apply(myX[-1,-(1:11)], 1,
             function(one) GAPIT.Numericalization(one, bit=2, impute="Middle", 	Major.allele.zero=F))
 H=1-abs(myGD-1)
@@ -109,7 +107,7 @@ dim(myX)  #161677    381
 ```
 <br>
 
-#### 1-3. PCoA I
+#### 1-2. PCoA
 ```
 library(ggplot2)
 dim(myGD)
@@ -119,10 +117,8 @@ mds.var.per <- round(mds.stuff$eig/sum(mds.stuff$eig)*100,1)
 mds.var.per[1:5]
 mds.values <- mds.stuff$points
 mds.data <- data.frame(Sample=1:nrow(myY),  X=mds.values[,1], Y=mds.values[,2])
-```
-<br>
-#### 1-4. PCoA II
-```
+
+
 pdf("PCoA.pdf")
 gg <- ggplot(data=mds.data, aes(x=X, y=Y, label=Sample)) +
   geom_text() +
@@ -134,6 +130,7 @@ print(gg)
 dev.off()
 ```
 <br>
+
 ### 2. Imputation and controlling MAF
 ```
 setwd("C:/Users/pc/Desktop/gapitex/result2")
