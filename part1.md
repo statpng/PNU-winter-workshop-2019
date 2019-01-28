@@ -33,7 +33,7 @@ Hansong Lee
 
 ---
 
-<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.6.0/styles/ir-black.min.css">
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.6.0/styles/github.min.css">
 <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.6.0/highlight.min.js"></script>
 <script>hljs.initHighlightingOnLoad();</script>
 
@@ -70,7 +70,7 @@ dim(myY);dim(myX)
 genedata <-  myX[-1,-c(1:11)]
 na <- apply(genedata, 1, function(x) sum(x=='NN'))
 length(na)
-max(na); max(na)/ncol(genedata) 
+max(na); max(na)/ncol(genedata)
 ```
 <br>
 #### 0-3. Preprocess (check genotypes)
