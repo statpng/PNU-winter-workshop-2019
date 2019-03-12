@@ -257,4 +257,42 @@ matplot( log(stable.lambda), t(stable.sp.out), type="l",
 # save.image( file="part4.RData" )
 ```
 
+<br>
+
+
+### 6. Example of *sp.gwas*
+#### 6-1. Set-up
+```{r}
+# install.packages("devtools")
+library(devtools)
+install_github("statpng/sp.gwas")
+# update.packages()
+# remove.package("pkgname"); install.packages("pkgname")
+library(sp.gwas)
+```
+
+#### 6-2. Example1
+```{r}
+sp.gwas(genotype.path="./genotype1.csv",
+        phenotype.path="./phenotype1.csv",
+        save.path="./Test1",
+        y.col=4:7,
+        y.id.col=2,
+        method="lasso",
+        family="gaussian"
+        )
+```
+
+#### 6-3. Example2
+```{r}
+sp.gwas(genotype.path="./genotype2.csv",
+        phenotype.path="./phenotype2.csv",
+        save.path="./Test2",
+        y.col=3,
+        y.id.col=1,
+        method="lasso",
+        family="gaussian"
+        )
+```
+
 <hr><br>
